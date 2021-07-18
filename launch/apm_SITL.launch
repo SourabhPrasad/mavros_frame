@@ -9,8 +9,9 @@
 	<arg name="log_output" default="screen" />
 	<arg name="fcu_protocol" default="v2.0" />
 	<arg name="respawn_mavros" default="false" />
+	<arg name="reverse_throttle" default="true" />
 
-	<include file="$(find mavros)/launch/node.launch">
+	<include file="$(find mavros_frame)/launch/node.launch">
 		<arg name="pluginlists_yaml" value="$(find mavros)/launch/apm_pluginlists.yaml" />
 		<arg name="config_yaml" value="$(find mavros)/launch/apm_config.yaml" />
 
@@ -21,5 +22,6 @@
 		<arg name="log_output" value="$(arg log_output)" />
 		<arg name="fcu_protocol" value="$(arg fcu_protocol)" />
 		<arg name="respawn_mavros" value="$(arg respawn_mavros)" />
+		<arg name="reverse_throttle" value="$(arg reverse_throttle)" />
 	</include>
 </launch>
