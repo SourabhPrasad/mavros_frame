@@ -1,0 +1,18 @@
+<launch>
+    <node 
+		name="mode_change"
+		pkg="mavros_frame"
+		type="mode_change" >
+	</node>
+    <node 
+		name="thruster_control_setpoint"
+		pkg="mavros_frame"
+		type="thruster_control_setpoint" >
+	</node>
+    <node 
+		name="joy_node"
+		pkg="joy"
+		type="joy_node" >
+		<param name="autorepeat_rate" value="1"/>
+	</node>
+</launch>
