@@ -3,14 +3,15 @@
 	<!-- example launch script for ArduPilot based FCU's -->
 
 	<arg name="fcu_url" default="udp://127.0.0.1:14551@14555" />
-	<arg name="gcs_url" default="udp://@10.4.40.122" />
-	<arg name="tgt_system" default="255" />
+	<arg name="gcs_url" default="" />
+	<arg name="tgt_system" default="1" />
 	<arg name="tgt_component" default="1" />
 	<arg name="log_output" default="screen" />
 	<arg name="fcu_protocol" default="v2.0" />
 	<arg name="respawn_mavros" default="false" />
+	<arg name="reverse_throttle" default="true" />
 
-	<include file="$(find mavros)/launch/node.launch">
+	<include file="$(find mavros_frame)/launch/node.launch">
 		<arg name="pluginlists_yaml" value="$(find mavros)/launch/apm_pluginlists.yaml" />
 		<arg name="config_yaml" value="$(find mavros)/launch/apm_config.yaml" />
 
@@ -21,5 +22,6 @@
 		<arg name="log_output" value="$(arg log_output)" />
 		<arg name="fcu_protocol" value="$(arg fcu_protocol)" />
 		<arg name="respawn_mavros" value="$(arg respawn_mavros)" />
+		<arg name="reverse_throttle" value="$(arg reverse_throttle)" />
 	</include>
 </launch>
