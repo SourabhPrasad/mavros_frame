@@ -50,11 +50,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+ add_message_files(
+   FILES
+   thrusterrr.msg
+ )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -107,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES mavros_frame_lib
+  LIBRARIES mavros_frame
   CATKIN_DEPENDS roscpp rospy std_msgs mavros_msgs
   DEPENDS system_lib
 )
@@ -132,6 +131,8 @@ include_directories(
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
