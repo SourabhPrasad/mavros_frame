@@ -20,6 +20,7 @@
 		<param name="target_component_id" value="$(arg tgt_component)" />
 		<param name="fcu_protocol" value="$(arg fcu_protocol)" />
 		<param name="setpoint_attitude/reverse_throttle" value="$(arg reverse_throttle)" />
+		<param name="setpoint_attitude/reverse_thrust" value="$(arg reverse_throttle)" />
 		<!-- load blacklist, config -->
 		<rosparam command="load" file="$(arg pluginlists_yaml)" />
 		<rosparam command="load" file="$(arg config_yaml)" />

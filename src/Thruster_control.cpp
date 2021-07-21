@@ -14,8 +14,8 @@ class Thruster_control
         float min_thrust = 1100.0;
         float max_thrust = 1900.0;
 
-        float min_steering = 1000.0;
-        float max_steering = 2000.0;
+        float min_steering = 1100.0;
+        float max_steering = 1900.0;
 
     public:
         Thruster_control();

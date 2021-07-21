@@ -5,9 +5,9 @@
 		type="mode_change" >
 	</node>
     <node 
-		name="thruster_control_setpoint"
+		name="thruster_control"
 		pkg="mavros_frame"
-		type="thruster_control_setpoint" >
+		type="thruster_control" >
 	</node>
     <node 
 		name="joy_node"
