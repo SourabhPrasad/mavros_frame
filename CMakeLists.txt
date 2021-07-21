@@ -12,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   mavros_msgs
+  message_generation
+  message_runtime
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES mavros_frame
+  LIBRARIES mavros_frame_lib
   CATKIN_DEPENDS roscpp rospy std_msgs mavros_msgs
   DEPENDS system_lib
 )
@@ -144,6 +146,10 @@ target_link_libraries(thruster_control ${catkin_LIBRARIES})
 
 add_executable(thruster_control_setpoint src/Thruster_control_setpoint.cpp)
 target_link_libraries(thruster_control_setpoint ${catkin_LIBRARIES})
+
+add_executable(thruster_control_webportal src/thruster_control_webportal.cpp)
+target_link_libraries(thruster_control_webportal ${catkin_LIBRARIES})
+#add_dependencies(thruster_control_webportal mavros_frame_generate_messages_cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
