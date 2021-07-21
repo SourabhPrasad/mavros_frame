@@ -150,6 +150,9 @@ target_link_libraries(thruster_control_setpoint ${catkin_LIBRARIES})
 
 add_executable(thruster_control_webportal src/thruster_control_webportal.cpp)
 target_link_libraries(thruster_control_webportal ${catkin_LIBRARIES})
+
+add_executable(arm src/arming.cpp)
+target_link_libraries(arm ${catkin_LIBRARIES})
 #add_dependencies(thruster_control_webportal mavros_frame_generate_messages_cpp)
 
 ## Rename C++ executable without prefix

@@ -38,7 +38,8 @@ class Thruster_control
         void get_thruster_right(const std_msgs::Int32::ConstPtr &r_val);
         void get_thruster_left(const std_msgs::Int32::ConstPtr &l_val);
         void get_rc(const mavros_msgs::RCIn::ConstPtr &rc_val);
-        void pub_override();
+        void pub_override_right();
+        void pub_override_left();
 
 };
 
@@ -81,45 +82,43 @@ void Thruster_control::get_thruster_left(const std_msgs::Int32::ConstPtr &l_v)
 {
     left_val = l_v->data;
     ROS_INFO("Value: %f", left_val);
-    pub_override();
+    pub_override_right();
 
 }
 
 void Thruster_control::get_thruster_right(const std_msgs::Int32::ConstPtr &r_v)
 {
     right_val = r_v->data;
-    ROS_INFO("Value: %f", right_val);
+    ROS_INFO("right val: %f", right_val);
+    pub_override_left();
 }
 
-void Thruster_control::pub_override()
+void Thruster_control::pub_override_right()
 {
     if(override_flag)
     {
-        if(left_val != 0)
-        {
-            thruster_val_portion = (left_val - -40.0)*(max_thrust-min_thrust)/(40.0 - -40.0);
-            thruster_val = thruster_val_portion + min_thrust;
-            override_rc.channels = {1500, 0, thruster_val, 0, 0 , 0, 0, 0};
-        }
-        else if(right_val != 0 && (left_val >= -40))
-        {
-            steering_val_portion = (right_val - -40.0)*(max_steering-min_steering)/(40.0 - -40.0);
-            steering_val = steering_val_portion + min_steering;
-            override_rc.channels = {steering_val, 0, 1600, 0, 0 , 0, 0, 0};
-        }
-    
-        // unsigned short steering_val_portion = (right_val - -40.0)*(max_steering-min_steering)/(40.0 - -40.0);
-        // unsigned short thruster_val = thruster_val_portion + min_thrust;
-        // unsigned short steering_val = steering_val_portion + min_steering;
-        // ROS_INFO("Thrust Value: %d", thruster_val);
-        // ROS_INFO("Steering Value: %d", steering_val);
-        // override_rc.channels = {steering_val, 0, thruster_val, 0, 0 , 0, 0, 0};
+        thruster_val_portion = (left_val - -40.0)*(max_thrust-min_thrust)/(40.0 - -40.0);
+        thruster_val = thruster_val_portion + min_thrust;
+        ROS_INFO("Thrust Value: %d", thruster_val);
+        override_rc.channels = {1500, 0, thruster_val, 0, 0 , 0, 0, 0};
+        send_rc.publish(override_rc);
     }
-    else
+}
+void Thruster_control::pub_override_left()
+{
+    if(override_flag)
     {
-        override_rc.channels = {0, 0, 0, 0, 0 , 0, 0, 0};
+        steering_val_portion = (right_val - -40.0)*(max_steering-min_steering)/(40.0 - -40.0);
+        steering_val = steering_val_portion + min_steering;
+        ROS_INFO("Steering Value: %d", steering_val);
+        override_rc.channels = {steering_val, 0, 1600, 0, 0 , 0, 0, 0};
+        if(right_val == 0)
+        {
+            override_rc.channels = {steering_val, 0, 1500, 0, 0 , 0, 0, 0};
+        }
+        send_rc.publish(override_rc);
     }
-    send_rc.publish(override_rc);
+    
 }
 
 int main(int argc, char **argv)
