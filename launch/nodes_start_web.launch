@@ -1,0 +1,17 @@
+<launch>
+    <node 
+		name="mode_change"
+		pkg="mavros_frame"
+		type="mode_change" >
+	</node>
+    <node 
+		name="thruster_control_webportal"
+		pkg="mavros_frame"
+		type="thruster_control_webportal" >
+	</node>
+	<node 
+		name="arming"
+		pkg="mavros_frame"
+		type="arming" >
+	</node>
+</launch>
