@@ -16,6 +16,8 @@ class arm_auth
         ros::Subscriber get_aws;
 
         ros::Publisher auth;
+
+        bool auth_flag;
     public:
     arm_auth();
     void aws_sub(const std_msgs::String::ConstPtr &info);
@@ -26,8 +28,10 @@ class arm_auth
 arm_auth::arm_auth()
 {
     arm_client  = node.serviceClient<mavros_msgs::CommandBool>("/mavros/cmd/arming");
-    get_aws  = node.subscribe("/aws/iot/available", 1, &arm_auth::aws_sub, this);
-    auth = node.advertise<std_msgs::Bool>("/aws/sumerian/available", 1);
+    get_aws     = node.subscribe("/aws/iot/available", 1, &arm_auth::aws_sub, this);
+    auth        = node.advertise<std_msgs::Bool>("/machine/available", 1);
+
+    auth_flag   = false;    
 }
 
 void arm_auth::aws_sub(const std_msgs::String::ConstPtr &info)
@@ -35,19 +39,21 @@ void arm_auth::aws_sub(const std_msgs::String::ConstPtr &info)
     if(info->data == "Authentication_success")
     {
         pub_auth(true);
+        auth_flag = true;
     }
     else if(info->data == "User_logout")
     {
         pub_auth(false);
+        auth_flag = false;
         arm_cmd.request.value = false;
         arm_client.call(arm_cmd);
     }
-    else if(info->data == "arm")
+    else if(info->data == "arm" && auth_flag)
     {
         arm_cmd.request.value = true;
         arm_client.call(arm_cmd);
     }
-    else if(info->data == "disarm")
+    else if(info->data == "disarm" && auth_flag)
     {
         arm_cmd.request.value = false;
         arm_client.call(arm_cmd);
