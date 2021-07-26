@@ -10,8 +10,8 @@
 		type="thruster_control_webportal" >
 	</node>
 	<node 
-		name="arming"
+		name="arm"
 		pkg="mavros_frame"
-		type="arming" >
+		type="arm" >
 	</node>
 </launch>
