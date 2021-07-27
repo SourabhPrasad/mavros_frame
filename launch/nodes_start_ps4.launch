@@ -10,14 +10,8 @@
 		type="thruster_control" >
 	</node>
 	<node 
-		name="arming"
+		name="arm"
 		pkg="mavros_frame"
-		type="arming" >
-	</node>
-    <node 
-		name="joy_node"
-		pkg="joy"
-		type="joy_node" >
-		<param name="autorepeat_rate" value="1"/>
+		type="arm" >
 	</node>
 </launch>
