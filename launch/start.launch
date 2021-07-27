@@ -1,0 +1,23 @@
+<launch>
+	<include file="$(find mqtt_ros_aws_iot)/launch/connect.launch" />
+    <node 
+		name="mode_change"
+		pkg="mavros_frame"
+		type="mode_change" >
+	</node>
+    <node 
+		name="thruster_control"
+		pkg="mavros_frame"
+		type="thruster_control" >
+	</node>
+    <node 
+		name="thruster_control_webapp"
+		pkg="mavros_frame"
+		type="thruster_control_webapp" >
+	</node>
+	<node 
+		name="arm"
+		pkg="mavros_frame"
+		type="arm" >
+	</node>
+</launch>
