@@ -56,11 +56,10 @@ find_package(catkin REQUIRED COMPONENTS
  #)
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+ add_service_files(
+   FILES
+  status_srv
+ )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -148,8 +147,8 @@ target_link_libraries(thruster_control ${catkin_LIBRARIES})
 add_executable(thruster_control_setpoint src/Thruster_control_setpoint.cpp)
 target_link_libraries(thruster_control_setpoint ${catkin_LIBRARIES})
 
-add_executable(thruster_control_webportal src/thruster_control_webportal.cpp)
-target_link_libraries(thruster_control_webportal ${catkin_LIBRARIES})
+add_executable(thruster_control_webapp src/thruster_control_webportal.cpp)
+target_link_libraries(thruster_control_webapp ${catkin_LIBRARIES})
 
 add_executable(arm src/arming.cpp)
 target_link_libraries(arm ${catkin_LIBRARIES})
